@@ -208,24 +208,24 @@ jobs:
           access_secret = ${ACCESS_SECRET}
           EOF
 
-      - name: Release package on Launchpad
-        id: create-new-lp-release
-        run: |
-          echo "Tarball name: ${{ steps.get-tarball-name.outputs.TARBALL_FILENAME }} | version: ${{ steps.get-tarball-name.outputs.VERSION }}"
-          lp_track=$(echo "${{ steps.get-tarball-name.outputs.TRACK }}")
-          echo "lp_track $lp_track"
-          track_length=$( echo $lp_track | wc -c )
-          if [ $track_length -lt 3 ]; then
-            lp_track+=".x"
-          fi
-          echo "lp_track $lp_track"
-          python3 -m uploader.launchpad_release \
-            --app "${{ inputs.name }}" \
-            --project "${{ inputs.lp-releasing-project }}" \
-            --track "$lp_track" \
-            --version "${{ steps.get-tarball-name.outputs.LP_VERSION }}" \
-            --tarball "${{ env.OUTPUT_DIR }}/${{ matrix.version }}/${{ steps.get-tarball-name.outputs.TARBALL_FILENAME }}" \
-            --credentials ${{ env.LP_CREDENTIALS }}
+      # - name: Release package on Launchpad
+      #   id: create-new-lp-release
+      #   run: |
+      #     echo "Tarball name: ${{ steps.get-tarball-name.outputs.TARBALL_FILENAME }} | version: ${{ steps.get-tarball-name.outputs.VERSION }}"
+      #     lp_track=$(echo "${{ steps.get-tarball-name.outputs.TRACK }}")
+      #     echo "lp_track $lp_track"
+      #     track_length=$( echo $lp_track | wc -c )
+      #     if [ $track_length -lt 3 ]; then
+      #       lp_track+=".x"
+      #     fi
+      #     echo "lp_track $lp_track"
+      #     python3 -m uploader.launchpad_release \
+      #       --app "${{ inputs.name }}" \
+      #       --project "${{ inputs.lp-releasing-project }}" \
+      #       --track "$lp_track" \
+      #       --version "${{ steps.get-tarball-name.outputs.LP_VERSION }}" \
+      #       --tarball "${{ env.OUTPUT_DIR }}/${{ matrix.version }}/${{ steps.get-tarball-name.outputs.TARBALL_FILENAME }}" \
+      #       --credentials ${{ env.LP_CREDENTIALS }}
 
       - name: Release the package on Github
         id: create-new-release
