@@ -292,14 +292,14 @@ jobs:
           asset_name: ${{ steps.get-tarball-name.outputs.TARBALL_FILENAME }}.sha512
           asset_content_type: application/txt
 
-      - name: Upload Java dependencies to artifactory
-        run: |
-          python3 -m uploader.services \
-            upload-product-jars \
-            --tarball-path "${{ env.OUTPUT_DIR }}/${{ matrix.version }}/${{ steps.get-tarball-name.outputs.TARBALL_FILENAME }}" \
-            --mvn-repository "${{ env.OUTPUT_DIR }}/${{ matrix.version }}/repository.zip" \
-            --artifactory-url "${{ inputs.artifactory-url }}" \
-            --artifactory-username "${{ secrets[inputs.artifactory-user] }}" \
-            --artifactory-password "${{ secrets[inputs.artifactory-token] }}"
-
-          echo "Upload of dependencies completed!"
+      # - name: Upload Java dependencies to artifactory
+      #   run: |
+      #     python3 -m uploader.services \
+      #       upload-product-jars \
+      #       --tarball-path "${{ env.OUTPUT_DIR }}/${{ matrix.version }}/${{ steps.get-tarball-name.outputs.TARBALL_FILENAME }}" \
+      #       --mvn-repository "${{ env.OUTPUT_DIR }}/${{ matrix.version }}/repository.zip" \
+      #       --artifactory-url "${{ inputs.artifactory-url }}" \
+      #       --artifactory-username "${{ secrets[inputs.artifactory-user] }}" \
+      #       --artifactory-password "${{ secrets[inputs.artifactory-token] }}"
+      #
+      #     echo "Upload of dependencies completed!"
